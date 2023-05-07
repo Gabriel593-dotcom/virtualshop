@@ -1,4 +1,4 @@
-package com.virtualshop.mssale.services;
+package com.virtualshop.mssale.services.interfaces;
 
 import java.util.List;
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.virtualshop.mssale.entities.Sale;
 import com.virtualshop.mssale.entities.dtos.SaleInputDTO;
 import com.virtualshop.mssale.repositories.SaleRepository;
-import com.virtualshop.mssale.services.ISaleService;
+import com.virtualshop.mssale.services.interfaces.ISaleService;
 
 @Service
 public class SaleService implements ISaleService{
