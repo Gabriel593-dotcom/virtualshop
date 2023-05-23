@@ -2,6 +2,8 @@ package com.virtualshop.msproduct.controllers;
 
 import java.util.List;
 
+import javax.ws.rs.core.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.virtualshop.msproduct.entities.Product;
 import com.virtualshop.msproduct.entities.dtos.ProductInputDTO;
 import com.virtualshop.msproduct.services.ProductService;
@@ -32,10 +35,16 @@ public class ProductController {
         return ResponseEntity.ok().body(products);
     }
 
+    @HystrixCommand(fallbackMethod = "getAlternativeProduct")
     @GetMapping(value = "/{id}")
     public ResponseEntity<Product> findById(@PathVariable Long id) {
         Product product = service.findById(id);
         return ResponseEntity.ok().body(product);
+    }
+
+    public ResponseEntity<Product> getAlternativeProduct(Long id) {
+        Product defaultProduct = new Product(0L, "Nothing", 0.0, 0);
+        return ResponseEntity.ok().body(defaultProduct);
     }
 
     @PostMapping(value = "/saveProduct")
