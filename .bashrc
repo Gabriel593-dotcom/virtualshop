@@ -1,0 +1,1 @@
+alias virtualshop='./execVirtualShop.sh' 
